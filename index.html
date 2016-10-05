@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>fabric.js test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+      canvas {
+        border: solid 3px #000;
+      }
+    </style>
+    <script type="text/javascript" src="./dist/fabric.js"></script>
+    <script type="text/javascript">
+
+    window.onload = function(){
+
+      var canvas = this.__canvas = new fabric.Canvas('test_canvas');
+      fabric.Object.prototype.transparentCorners = false;
+
+      // var canvas = new fabric.Canvas('test_canvas');
+      // fabric.Object.prototype.transparentCorners = false;
+      var mouse_start_pos = { x:0 , y:0 };
+      var mouse_end_pos = { x:0 , y:0 };
+      var width = 120;
+      var height = 80;
+      var on_flag = 0;
+
+
+        canvas.on('mouse:over', function(e) {
+          on_flag = 1;
+          e.target.setFill('red');
+          // e.target.hasControls = true;
+          // canvas.set('selectable', true);
+          canvas.renderAll();
+        });
+
+
+        canvas.on('mouse:out', function(e) {
+          on_flag = 0;
+          e.target.setFill('green');
+          // e.target.hasControls = false;
+          // canvas.set('selectable', false);
+          canvas.renderAll();
+        });
+
+
+
+
+      canvas.on('mouse:down', function(e) {
+        if(on_flag == 0){
+         mouse_start_pos = canvas.getPointer(e.e);
+         canvas.add(new fabric.Rect({
+             left: mouse_start_pos.x - width / 2,
+             top: mouse_start_pos.y - height /2,
+             width: width,
+             height: height,
+             fill: 'aqua',
+             stroke: 'blue',
+             strokeWidth: 0
+         }));
+         on_flag = 1;
+       }
+      });
+    }
+
+    </script>
+  </head>
+  <body>
+    <p>テスト</p>
+    <canvas id="test_canvas" width="1200" height="800"></canvas>
+
+  <!-- SCRIPTS -->
+  <!-- Example: <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+  </body>
+</html>
