@@ -33,7 +33,7 @@
 
         canvas.on('mouse:over', function(e) {
           on_flag = 1;
-          e.target.setFill('red');
+          // e.target.setFill('red');
           // e.target.hasControls = true;
           // canvas.set('selectable', true);
           canvas.renderAll();
@@ -42,27 +42,46 @@
 
         canvas.on('mouse:out', function(e) {
           on_flag = 0;
-          e.target.setFill('green');
+          // e.target.setFill('green');
+          // e.target.setColor('red');
           // e.target.hasControls = false;
           // canvas.set('selectable', false);
           canvas.renderAll();
         });
 
 
-
-
       canvas.on('mouse:down', function(e) {
         if(on_flag == 0){
          mouse_start_pos = canvas.getPointer(e.e);
-         canvas.add(new fabric.Rect({
-             left: mouse_start_pos.x - width / 2,
-             top: mouse_start_pos.y - height /2,
-             width: width,
-             height: height,
-             fill: 'aqua',
-             stroke: 'blue',
-             strokeWidth: 0
-         }));
+
+        var title_input = new fabric.IText('テキスト', {
+          fontFamily: "Fredoka One",
+          // top: mouse_start_pos.y - width / 2,
+          // left: mouse_start_pos.x - height /2,
+          top: mouse_start_pos.y,
+          left: mouse_start_pos.x,
+          fontSize: 20,
+          fill: '#000',
+          // textBackgroundColor: '#eef',
+          backgroundColor:'deepskyblue',
+        });
+
+        canvas.add(title_input);
+
+        // var rect = new fabric.Rect({
+        //   fill: '#eef',
+        //   width: 200,
+        //   height: 100
+        // });
+        //
+        // var group = new fabric.Group([rect,title_input], {
+        //   top: mouse_start_pos.y - width / 2,
+        //   left: mouse_start_pos.x - height /2
+        // });
+        //
+        // canvas.add(group);
+
+
          on_flag = 1;
        }
       });
